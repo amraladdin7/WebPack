@@ -1,16 +1,80 @@
+// const getKey = async () => {
+//   const response = await fetch("http://localhost:8081/key");
+//   try {
+//     const data = await response.json();
+//     console.log(data);
+//     return data;
+//   } catch (e) {
+//     console.log("error: " + e);
+//   }
+// };
+
+// const getFormData = async (requestOptions) => {
+//   fetch("https://api.meaningcloud.com/sentiment-2.1", requestOptions)
+//     .then((response) => {
+//       console.log(response);
+//       return {
+//         status: response.status,
+//         body: response.json(),
+//       };
+//     })
+//     .then(({ status, body }) => {
+//       console.log(body);
+//     })
+//     .catch((error) => console.log("error", error));
+// };
+
+const postData = async (url, text) => {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      text: text,
+    }),
+  });
+  try {
+    const resData = await res.json();
+    console.log(resData);
+    return resData;
+  } catch (e) {
+    console.error("error: " + e);
+  }
+};
+
 function handleSubmit(event) {
   event.preventDefault();
 
   // check what text was put into the form field
   let formText = document.getElementById("name").value;
-  Client.checkForName(formText);
+  const valid = Client.textCheck(formText);
+
+  if (valid) {
+    postData("http://localhost:8081/analysis", formText).then((resData) => {
+      document.getElementById("results").innerHTML = resData.subjectivity;
+    });
+  }
+  // const key = getKey();
+  // console.log(key);
+  // const formdata = new FormData();
+  // formdata.append("key", `${key}`);
+  // formdata.append("txt", formText);
+  // formdata.append("lang", "en"); // 2-letter code, like en es fr ...
+
+  // const requestOptions = {
+  //   method: "POST",
+  //   body: formdata,
+  //   redirect: "follow",
+  // };
+
+  // const res = getFormData(requestOptions).then((data) => {
+  //   console.log(data);
+  // });
+
+  // console.log(res);
 
   console.log("::: Form Submitted :::");
-  fetch("http://localhost:8081/test")
-    .then((res) => res.json())
-    .then(function (res) {
-      document.getElementById("results").innerHTML = res.message;
-    });
 }
 
 export { handleSubmit };
