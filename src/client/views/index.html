@@ -24,6 +24,7 @@
 
     <main>
         <section>
+            Copy and paste the text you need to analyize in the form and submit for results:
             <form class="" onsubmit="return Client.handleSubmit(event)">
                 <input id="name" type="text" name="input" value="" onblur="onBlur()" placeholder="Name">
                 <input type="submit" name="" value="submit">
@@ -31,8 +32,13 @@
         </section>
 
         <section>
-            <strong>Subjectivity:</strong>
-            <div id="results"></div>
+            <strong>Analysis:</strong>
+            <div id="agreement"></div>
+            <div id="confidence"></div>
+            <div id="irony"></div>
+            <div id="score_tag"></div>
+            <div id="subjectivity"></div>
+            <div id="sentence-list"></div>
         </section>
     </main>
 

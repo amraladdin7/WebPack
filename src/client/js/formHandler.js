@@ -52,7 +52,14 @@ function handleSubmit(event) {
 
   if (valid) {
     postData("http://localhost:8081/analysis", formText).then((resData) => {
-      document.getElementById("results").innerHTML = resData.subjectivity;
+      console.log(resData);
+      document.getElementById("agreement").innerHTML = resData.agreement;
+      document.getElementById("confidence").innerHTML = resData.confidence;
+      document.getElementById("irony").innerHTML = resData.irony;
+      document.getElementById("score_tag").innerHTML = resData.score_tag;
+      document.getElementById("subjectivity").innerHTML = resData.subjectivity;
+      document.getElementById("sentence-list").innerHTML =
+        resData.sentence_list;
     });
   }
   // const key = getKey();

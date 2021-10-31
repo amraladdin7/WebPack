@@ -34,7 +34,12 @@ app.post("/analysis", async function (req, res) {
   try {
     const data = await response.json();
     console.log(data);
+    storedData["agreement"] = data.agreement;
+    storedData["confidence"] = data.confidence;
+    storedData["irony"] = data.irony;
+    storedData["score_tag"] = data.score_tag;
     storedData["subjectivity"] = data.subjectivity;
+    storedData["sentence_list"] = data.sentence_list[0].text;
     res.send(storedData);
   } catch (e) {
     console.error("error: " + e);
